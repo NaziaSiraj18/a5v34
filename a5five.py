@@ -120,18 +120,15 @@ elif choice == "🔑 Login":
             if st.session_state.failed_attempts >= 3:
                 st.session_state.lockout_time = time.time() + LOCKOUT_DURATION
                 st.error("Too many failed attempts. Locked for 60 seconds.")
-
                 st.stop()
-
-
-    
-# 🔒 data store section ===
-elif choice == "💼 Store Data":
+        
+        # 🔒 data store section ===
+    elif choice == "💼 Store Data":
         if not st.session_state.authenticated_user:
             st.warning("🔒Please login first.")
             
     else:
-        st.subheader("🔒Store Encrypted Data") 
+        st.subheader("🔒Store Encrypted Data"): 
         data = st.text_area("📄Enter data to encrpty")  
         passkey = st.text_input("🔑Encryption key (passphrase)", type="password")    
         
