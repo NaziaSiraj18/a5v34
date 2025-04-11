@@ -128,7 +128,7 @@ elif choice == "🔑 Login":
             st.warning("🔒Please login first.")
             
     else:
-        st.subheader("🔒Store Encrypted Data"): 
+        st.subheader("🔒Store Encrypted Data")
         data = st.text_area("📄Enter data to encrpty")  
         passkey = st.text_input("🔑Encryption key (passphrase)", type="password")    
         
