@@ -111,24 +111,27 @@ elif choice == "🔑 Login":
         if username in stored_data and stored_data[username]["password"] == hash_password(password):
             st.session_state.authenticated_user = username
             st.session_state.failed_attempts = 0
-            st.success(f"🎉Welcome {username}")
+            st.success(f"🎉Welcome {username}!")
         else:
             st.session_state.failed_attempts += 1    
             remaining = 3 - st.session_state.failed_attempts
-            st.error(f"❌ Invalid credentials! {remaining} Attempts left.")
+            st.error(f"❌ Invalid credentials! Attempts left: {remaining}")
+            
             
             if st.session_state.failed_attempts >= 3:
                 st.session_state.lockout_time = time.time() + LOCKOUT_DURATION
-                st.error("Too many failed attempts. Locked for 60 seconds.")
+                st.error("To many failed attempts. Locked for 60 seconds.")
                 st.stop()
         
-        # 🔒 data store section ===
+        
+    # 🔒 data store section ===
     elif choice == "💼 Store Data":
         if not st.session_state.authenticated_user:
             st.warning("🔒Please login first.")
             
+            
     else:
-        st.subheader("🔒Store Encrypted Data")
+        st.subheader("🔒Store Encrypted Data") 
         data = st.text_area("📄Enter data to encrpty")  
         passkey = st.text_input("🔑Encryption key (passphrase)", type="password")    
         
@@ -138,20 +141,23 @@ elif choice == "🔑 Login":
                 stored_data[st.session_state.authenticated_user]["data"].append(encrypted_data)
                 save_data(stored_data)
                 st.success("✅ Data encrypted and saved successfully!")   
+            
                 
             else:
                 st.error("❗All fields are required to fill!")
+                
                 
     # === data retieve data  section ===  
         elif choice == "📈Retieve Data":
             if not st.session_state.authenticated_user:
                 st.warning("🔒Pleas login first")
             else:
-                st.subheader("📂Retriev data")
-                user_data = stored_data.get(st.session_state.authenticated_user, {}).get("data",[])
+                st.subheader("📂Retieve data")
+                user_data = stored_data.get(st.session_state.authenticated_user, {}).get("data", [])
                 
                 if not user_data:
                     st.info("No Data Found!")
+                    
                 else:
                     st.write("🔑Encrypted Data Enteries:")
                     for i, item in enumerate(user_data):
